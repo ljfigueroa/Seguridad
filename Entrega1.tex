@@ -1,0 +1,60 @@
+\documentclass[12pt]{article}%
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsfonts}
+\usepackage{fancyhdr}
+\usepackage{comment}
+\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2.2cm, right=2.2cm]%
+{geometry}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage{changepage}
+\usepackage{amssymb}
+
+\begin{document}
+
+\title{Seguridad informática - Entrega 1}
+\author{Lauro J. Figueroa}
+\date{\today}
+\maketitle
+\section*{Introducción}
+Los ejercicios realizados fueron: 3, 
+
+\section*{Ejercicio 3}
+El principal objetivo de una entidad comercial es producir y es
+contraproducente, al menos intuitivamente, imponer barreras para
+maximizar este objetivo. Sin embargo, hay entidades que no podrian
+existir o al menos no como las conocemos hoy sin políticas de seguridad y
+modelos robustos para garantizar que solo los usuarios con la
+autorización necesaria puedan operar en ellos.
+
+Algunos ejemplos de estas entidades y sus políticas son las siguientes:
+\begin{itemize}
+\item Bancos y su servicios de homebanking, donde una de sus políticas
+  de seguridad es usualmente desloguear deliberadamente a los usarios
+  loguados después de cierto tiempo. Los modelos que implementan esta
+  política, suelen definir un tiempo de diez minutos.
+  
+\item Plataformas comerciales de compra, como Steam. Esta empresa
+  tiene como caso interesante de estudio como la política de seguridad
+  para establecer un canal de comunicación con un dispositibo
+  confiable. Donde el modelado de esta política ofrece al usuario
+  puede designar a un dispositivo como confiable.
+
+  Una vez que se instala y configura la aplicación oficial en algun
+  dispositivo soportado, ésta es usada para verificar que quién
+  intenta loguearse a la cuenta del usuario es el mismisimo usuario y
+  no alguien más. La autenticación del usuario se da traves de la
+  generación de un código único enviado al dispositivo de confianza.
+  Cada compra echa en la aplicación tambien usa este mecanismo.
+
+  Entonces es claro que en el caso que el usuario pierda, o
+  simplemente, no pueda acceder a su dispositivo no podrá loguearse ni
+  relizar comprá alguna en esta plataforma, representando así una
+  potencial barrera comercial.
+\end{itemize}
+
+
+
+
+\end{document}
