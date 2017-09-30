@@ -15,46 +15,196 @@
 
 \title{Seguridad informática - Entrega 1}
 \author{Lauro J. Figueroa}
-\date{\today}
+\date{Septiembre 29, 2017}
 \maketitle
 \section*{Introducción}
-Los ejercicios realizados fueron: 3, 
+Los ejercicios realizados fueron: 3, 7, 11, 15, 19.5 y 21.3.
 
 \section*{Ejercicio 3}
 El principal objetivo de una entidad comercial es producir y es
 contraproducente, al menos intuitivamente, imponer barreras para
-maximizar este objetivo. Sin embargo, hay entidades que no podrian
+maximizar este objetivo. Sin embargo, hay entidades que no podrían
 existir o al menos no como las conocemos hoy sin políticas de seguridad y
 modelos robustos para garantizar que solo los usuarios con la
-autorización necesaria puedan operar en ellos.
+autorización necesaria puedan operar en ellas.
 
 Algunos ejemplos de estas entidades y sus políticas son las siguientes:
 \begin{itemize}
 \item Bancos y su servicios de homebanking, donde una de sus políticas
-  de seguridad es usualmente desloguear deliberadamente a los usarios
-  loguados después de cierto tiempo. Los modelos que implementan esta
+  de seguridad es usualmente desloguear intencionalmente a los usuarios
+  después de cierto tiempo. Los modelos que implementan esta
   política, suelen definir un tiempo de diez minutos.
   
 \item Plataformas comerciales de compra, como Steam. Esta empresa
-  tiene como caso interesante de estudio como la política de seguridad
-  para establecer un canal de comunicación con un dispositibo
+  tiene como caso interesante de estudio, una política de seguridad
+  para establecer un canal de comunicación con un dispositivo
   confiable. Donde el modelado de esta política ofrece al usuario
   puede designar a un dispositivo como confiable.
 
-  Una vez que se instala y configura la aplicación oficial en algun
+  Una vez que se instala y configura la aplicación oficial en algún
   dispositivo soportado, ésta es usada para verificar que quién
-  intenta loguearse a la cuenta del usuario es el mismisimo usuario y
-  no alguien más. La autenticación del usuario se da traves de la
+  intenta loguearse a la cuenta del usuario es el mismísimo usuario y
+  no alguien más. La autenticación del usuario se da través de la
   generación de un código único enviado al dispositivo de confianza.
-  Cada compra echa en la aplicación tambien usa este mecanismo.
+  Cada compra echa en la aplicación también usa este mecanismo.
 
   Entonces es claro que en el caso que el usuario pierda, o
   simplemente, no pueda acceder a su dispositivo no podrá loguearse ni
-  relizar comprá alguna en esta plataforma, representando así una
+  realizar compras alguna en esta plataforma, representando así una
   potencial barrera comercial.
 \end{itemize}
 
+\section*{Ejercicio 7}
+
+Un problema común donde se viola \textit{security} y \textit{safesty}
+es colgar/tildar un sistema, porque se llegó a un estado no correcto
+desde el punto de vista de \textit{safesty} y se no cumple con la el
+requerimiento de disponibilidad para garantizar \textit{security}.
+
+Un problema de \textit{security} y no de \textit{safesty} puede ser
+que dado de un sistema que solo requiera la contraseña para garantizar
+que el usuario ingresante está autorizado a acceder a la
+información; basta que alguien con autorización deje anotada la
+contraseña en algún lugar público y que alguien sin autorización la
+use. Esto viola la confidencialidad entonces por definición no cumple
+con \textit{security} pero si cumple con \textit{safesty} porque para
+loguearse se necesita la contraseña.
+
+Un problema de \textit{safesty} y no de \textit{security} es un bug en
+el sistema que muestre algo de forma incorrecta por error en la
+implementación y nada más. Un ejemplo de esto es una página web que
+tiene un bug en el código Javascript, donde una propiedad de safesty
+es dibujar las cosas en el orden que servidor dice, y que para
+construir todos sus widgets/elementos visuales los recibe, los pone en
+una buffer y los dibuja en el orden que les llega. Pero desde servidor
+los datos de los elementos visuales se envían de forma asíncrona (con
+la información necesaria para dibujarlos en orden), eventualmente va a
+llegar el momento en que no van a llegar en el orden correcto al
+navegador, por lo que quedan las cosas dibujadas en desorden pero se
+cumple security porque se puede usar igual la página desordenada por
+lo que disponibilidad no está comprometida y confidencialidad e
+integridad en este caso se cumplirán porque en principio ninguna de
+estas propiedades estarían afectadas por el orden de dibujado de una
+cola siendo que el sistema está diseñado diseñado teniendo en cuenta
+esta propiedad.
+
+\section*{Ejercicio 11}
+AppArmor es un programa de seguridad que implementa \textit{Mandatory
+  Access Control} MAC, para restringir programas a un conjunto
+limitado de recursos.
+
+AppArmor se diferencia de otras implementaciones de control de acceso
+obligatorio en GNU\-Linux dado que el modelo de seguridad que
+implementa es vincular atributos de control de acceso a programas en
+vez de a usuarios. Además se basa en la ruta de archivos a diferencia
+de otra alternativa como SELinux (que también implementa MAC) que se
+basa en etiquetas.
+
+La ventaja de usar AppArmor (sobre por ej. SELinux) es que no necesita
+modificar el sistema de archivos, se puede usar sobre cualquier
+sistema de archivos montado.
+
+En AppArmor los procesos son restringidos por perfiles cargados en el
+kernel. Los perfiles de AppArmor pueden ser de dos clases:
+\begin{itemize}
+\item \textit{Enforcement}, un perfil \textit{forzado}, resulta en la
+  aplicación de la política definida por el perfil, es decir que evita
+  que aplicaciones ejecuten acciones restringidas y a demás loguea cada
+  intento fallido.
+\item \textit{Complain}, de tipo \textit{queja} que permite que aplicaciones
+  ejecuten acciones restringidas por las política de seguridad y
+  loguea cada violación de las mismas.
+\end{itemize}
+
+\section*{Ejercicio 15}
+El bit \textbf{t} en la carpeta /tmp en los sistemas GNU\-Linux,
+también llamado \textit{sticky bit}, es un bit seteado sobre un
+directorio que da permiso de renombrado y eliminación de los
+archivos dentro del directorio solo a el dueño del archivo, el dueño
+del directorio y obviamente a root.
+
+En los sistemas GNU\-Linux, la carpeta /tmp tiene la finalidad de
+contener archivos temporales, es decir archivos que no son
+persistidos. Puede contener los archivos temporales de múltiples
+usuarios, por lo que este bit previene que entre distintos usuarios
+usando el directorio (y que no tengan permisos) no se puedan eliminar
+o renombrar archivos entre si.
+
+\section*{Ejercicio 19}
+Elegí el inciso \textit{Prog 5} para analizar.
+\begin{verbatim}
+-- Prog 5
+db_pass = readPassFromDBH();
+db_user = readUserFromDBH();
+user = readL();
+pass = readL();
+if (user == db_user && pass == db_pass)
+       msg = "Bienvenido";
+else
+       msg = "Usuario/password incorrecto";
+writeL(msg);
+\end{verbatim}
+
+Como se puede observar, se leen los usuarios y las contraseñas desde
+una lugar H, luego se lee dos inputs desde un lugar L (un usuario y
+una contraseña).  Luego se determina si el usuario y la contraseñas
+estarían en la base de datos, con lo cual hay dos resultados posible,
+y se procede a imprimir en L el resultado de esta comparación.
+
+Esto es claramente un flujo indebido de información. Sin importar cual
+es el resultado de la comparación, pues se le está enviando
+información de alto nivel a un lugar con bajo nivel. La información
+enviada, a pesar de ser de forma binaria, revela información H, porque
+en L luego sabrían si es o no correcto el combo usuario-contraseña
+mientras que antes de ejecutar \textit{Prog 5} no lo sabían.
+
+\section*{Ejercicio 21}
+Elegí el inciso 3 para analizar, el mismo presenta un problema simple
+pero común en muchos programas. El flujo indebido de información no es
+a simple vista explícito, sino que explota el canal de mensajes de
+errores para comunicar información H a un lugar L.
+
+Si uno escribe: while ($h_{i}$) skip; con $1 \leq i \leq 6$ y lo
+ejecuta, cada vez que la variable $h_{i}$ tiene el valor
+\textit{true} se imprime el siguiente mensaje de error:
+\begin{quote}
+Runtime error: Maximum execution time exceeded (10000 steps).  
+\end{quote}
+
+Como la información protegida es binaria (y aunque no lo fuera,
+también consistiría en una violación del flujo de información de H a
+L) y está garantizado que no se altera los valores de $h_{i}$ con cada
+nueva ejecución; el canal envía un mensaje de error cuando la variable
+en cuestión $h_{i}$ es \textit{true} por lo que se está comunicando el
+valor a través del mismo y ningun mensaje cuando no lo es.
 
 
+Por lo tanto un usuario atacante solo debería ejecutar su programa
+seis veces y con seguiría el valor de todas las variables $h_{i}$ con
+$1 \leq i \leq 6$. En particular para este inciso las variables de
+alto nivel contenían los siguientes valores:
+\begin{verbatim}
+l1 = true;
+l2 = false;
+l3 = false;
+l4 = false;
+l5 = true;
+l6 = true;
+\end{verbatim}
+
+Nota: si todas las variables fueran falsas, el atacante deberia
+definir una cota de tiempo para poder asumir que son falsas. En el
+ejemplo dado la primera es verdadera, por lo que el atacante
+descrubrio cual es este tiempo que le lleva al sistema lanzar la
+excepción en el primer intento, en un universo "bueno" (donde la
+carga del sistema no afecte este tiempo) solo deberá seis veces ese
+tiempo podra determiar cual es la contraseña.
+
+Una solución es no dejar que los campos condicionales de if o while
+puedan evaluar variables que contengan información de nivel H.  Otro
+enfoque, que no trata sobre el mini lenguaje del ejercicio, seria
+restringir los mensajes de errores mostrados a usuarios de nivel L.
 
 \end{document}
+
+
